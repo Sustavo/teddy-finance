@@ -1,12 +1,23 @@
-import { Text, TextInput, View } from "react-native";
-import { MainContainer, MainTextInput, TitleText } from "./styles";
+import { buttonStyle, inputStyle, MainContainer, textButtonStyle, TitleText } from "./styles";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { useNavigation, NavigationProp } from "@react-navigation/native"
+import { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export default function Welcome() {
     const navigation = useNavigation<NavigationProp<any>>()
+    const [inputValue, setInputValue] = useState("");
+
+    const handlePress = async () => {
+        try {
+            await AsyncStorage.setItem("userName", inputValue);
+            navigation.navigate("main");
+        } catch (error) {
+            console.error("Erro ao salvar o nome no AsyncStorage", error);
+        }
+    };
 
     return (
         <MainContainer>
@@ -14,27 +25,16 @@ export default function Welcome() {
             <Input
                 placeholder="Digite o seu nome:"
                 placeholderTextColor="#AAAAAA"
-                inputStyle={{
-                    paddingHorizontal: 15,
-                    borderWidth: 2,
-                    borderColor: '#d9d9d9',
-                    height: 60,
-                    width: '100%',
-                    fontSize: 24
-                }}
+                inputStyle={inputStyle}
+                value={inputValue}
+                onChangeText={(text) => setInputValue(text)}
             />
             <Button
                 children="Entrar"
-                onPress={() => navigation.navigate("main")}
-                buttonStyle={{
-                    borderRadius: 4,
-                    width: '100%',
-                }}
-                textStyle={{
-                    color: '#ffffff',
-                    fontSize: 24,
-                    paddingVertical: 16,
-                }}
+                onPress={handlePress}
+                buttonStyle={buttonStyle}
+                textStyle={textButtonStyle}
+                disabled={inputValue.trim() === ""}
             />
         </MainContainer>
     )

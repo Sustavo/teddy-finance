@@ -1,5 +1,5 @@
 import { GestureResponderEvent, TextStyle, TouchableOpacity, TouchableOpacityProps, ViewStyle } from "react-native";
-import { ScopeButton, TextButton } from "./styles";
+import { disabledStyle, ScopeButton, TextButton, textDisabled } from "./styles";
 
 interface ButtonProps extends TouchableOpacityProps {
     onPress: (event: GestureResponderEvent) => void;
@@ -12,10 +12,10 @@ export default function Button({ onPress, children, buttonStyle, textStyle, ...r
     return (
         <ScopeButton
             onPress={onPress}
-            style={buttonStyle}
+            style={[rest.disabled && disabledStyle, buttonStyle]}
             {...rest}
         >
-            <TextButton style={textStyle}>{children}</TextButton>
+            <TextButton style={[rest.disabled && textDisabled, textStyle]}>{children}</TextButton>
         </ScopeButton>
 
     );

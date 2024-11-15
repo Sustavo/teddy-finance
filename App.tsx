@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native"
 import {
   QueryCache,
@@ -12,8 +12,9 @@ import NetInfo from "@react-native-community/netinfo"
 import Routes from './src/routes/index.routes';
 import { AppState } from "react-native"
 import type { AppStateStatus } from 'react-native';
-import { useEffect } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import BottomSheet from '@gorhom/bottom-sheet';
 
 const client = new QueryClient({
   queryCache: new QueryCache(),
@@ -36,7 +37,7 @@ export default function App() {
   const onFocusRefetch = (status: AppStateStatus) => {
     focusManager.setFocused(status == 'active');
   };
-
+  
   return (
     //   <StatusBar style="light" />
     //   <Header />
@@ -48,6 +49,7 @@ export default function App() {
         </NavigationContainer>
       </GestureHandlerRootView>
     </QueryClientProvider>
+
   );
 }
 

@@ -10,8 +10,11 @@ import Header from "../../components/Header";
 import Pagination from "../../components/Pagination";
 import { Picker } from "@react-native-picker/picker";
 import { useCountUsers } from "../../hooks/user/useCountUsers";
+import { useNavigation, NavigationProp } from "@react-navigation/native"
+
 
 export default function Main() {
+    const navigation = useNavigation<NavigationProp<any>>()
     const [isOpenCreate, setIsOpenCreate] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedValue, setSelectedValue] = useState(5);
@@ -22,10 +25,10 @@ export default function Main() {
     useEffect(() => {
         refetch();
     }, [currentPage, selectedValue])
-
+    
     return (
         <>
-            <Header />
+            <Header onPress={() => navigation.navigate("selectedClients")} />
             <ScrollView>
                 <ClientModal isVisible={isOpenCreate} onPressBackDrop={() => setIsOpenCreate(false)} />
                 <MainContainer>

@@ -1,13 +1,10 @@
-import { StyleProp, TextStyle, ViewStyle } from "react-native";
 import { buttonTextStyle, ContainerInput, ContainerModal, inputStyle, labelStyle, TextModal } from "./style";
 import { Overlay } from "@rneui/themed";
 import Input from "../../Input";
 import Button from "../../Button";
-import { Controller, useForm, UseFormReset } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { CreateClient, UpdateClient } from "../../../@types/client";
-import { api } from "../../../api";
-import { useFindUserById } from "../../../hooks/user/useFindUserById";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useCreateUser from "../../../hooks/user/useCreateUser";
 import useUpdateUser from "../../../hooks/user/useUpdateUser";
 
@@ -19,7 +16,8 @@ interface ClientModalProps {
 }
 
 export default function ClientModal({ isVisible = false, onPressBackDrop, clientData, onClientUpdated }: ClientModalProps) {
-    const { control, handleSubmit, reset } = useForm<CreateClient>({
+    const [isEnabled, setIsEnabled] = useState(false);
+    const { control, handleSubmit, reset, watch } = useForm<CreateClient>({
         defaultValues: clientData
             ? {
                 name: clientData.name,
@@ -35,7 +33,6 @@ export default function ClientModal({ isVisible = false, onPressBackDrop, client
 
     const { mutate: createUserMutate } = useCreateUser();
     const { mutate: updateUserMutate } = useUpdateUser();
-
 
     const onSubmit = async (data: CreateClient) => {
         try {
@@ -74,6 +71,18 @@ export default function ClientModal({ isVisible = false, onPressBackDrop, client
             });
         }
     }, [clientData, reset]);
+
+    const name = watch("name");
+    const salary = watch("salary");
+    const companyValuation = watch("companyValuation");
+
+    useEffect(() => {
+        if (name && salary > 0 && companyValuation > 0) {
+            setIsEnabled(true);
+        } else {
+            setIsEnabled(false);
+        }
+    }, [name, salary, companyValuation]);
 
     return (
         <Overlay
@@ -148,6 +157,7 @@ export default function ClientModal({ isVisible = false, onPressBackDrop, client
                     buttonStyle={{
                         borderRadius: 8
                     }}
+                    disabled={!isEnabled}
                 >
                     {clientData ? 'Atualizar Cliente' : 'Criar Cliente'}
                 </Button>

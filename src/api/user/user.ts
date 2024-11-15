@@ -1,5 +1,6 @@
 import { api } from "..";
 import { Client, CreateClient, UpdateClient } from "../../@types/client";
+import { addClientToStorage } from "./asyncUser";
 
 export interface ClientsResponse {
   clients: Client[];
@@ -62,3 +63,14 @@ export const CountUsers = async() => {
     console.error(error);
   }
 }
+
+export const AddUserAsyncStorage = async(id: number) => {
+  try {
+    const { data }: {data: Client} = await api.get(`/users/${id}`);
+    addClientToStorage(data)
+    await api.delete(`users/${id}`)
+  } catch (error) {
+    console.error(error);
+  }
+}
+

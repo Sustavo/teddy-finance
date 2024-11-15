@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack"
 import Welcome from "../pages/welcome";
 import Main from "../pages/main";
+import SelectedClients from "../pages/SelectedClients";
 
 export default function Routes() {
     const { Navigator, Screen } = createStackNavigator();
@@ -21,6 +22,10 @@ export default function Routes() {
             <Screen  
                 name="main"
                 component={Main}
+            />
+            <Screen  
+                name="selectedClients"
+                component={SelectedClients}
             />
         </Navigator>
 
