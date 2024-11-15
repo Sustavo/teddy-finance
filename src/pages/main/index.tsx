@@ -1,4 +1,4 @@
-import { ScrollView, View } from "react-native";
+import { Modal, ScrollView, Text, View } from "react-native";
 import ClientComponent from "../../components/ClientComponent";
 import Button from "../../components/Button";
 import { TextBold } from "../../global/globalStyles";
@@ -12,7 +12,6 @@ import { Picker } from "@react-native-picker/picker";
 import { useCountUsers } from "../../hooks/user/useCountUsers";
 import { useNavigation, NavigationProp } from "@react-navigation/native"
 
-
 export default function Main() {
     const navigation = useNavigation<NavigationProp<any>>()
     const [isOpenCreate, setIsOpenCreate] = useState(false);
@@ -25,7 +24,7 @@ export default function Main() {
     useEffect(() => {
         refetch();
     }, [currentPage, selectedValue])
-    
+
     return (
         <>
             <Header onPress={() => navigation.navigate("selectedClients")} />

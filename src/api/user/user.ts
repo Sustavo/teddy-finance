@@ -20,7 +20,7 @@ export const FetchAllUsers = async (page: number, limit: number) => {
 export const FindUserById = async (id: number) => {
   try {
     const { data } = await api.get(`/users/${id}`);
-    return data;
+    return data || null;
   } catch (error) {
     console.error(error);
     return undefined;

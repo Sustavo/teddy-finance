@@ -1,4 +1,4 @@
-import { PaginationValues } from "../components/Pagination";
+import { PaginationValues } from "../../components/Pagination";
 
 export function createPagination(
   value: number,

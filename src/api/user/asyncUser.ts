@@ -1,13 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Client } from "../../@types/client";
 import { CreateUser } from "./user";
+import { saveClientsToStorage } from "../../utils/asyncStorage/saveClientsToStorage";
 
-const CLIENTS_KEY = "@clients";
-
-export const saveClientsToStorage = async (clients: Client[]) => {
-  const jsonValue = JSON.stringify(clients);
-  await AsyncStorage.setItem(CLIENTS_KEY, jsonValue);
-};
+export const CLIENTS_KEY = "@clients";
 
 export const getClientsFromStorage = async (): Promise<Client[]> => {
   const jsonValue = await AsyncStorage.getItem(CLIENTS_KEY);

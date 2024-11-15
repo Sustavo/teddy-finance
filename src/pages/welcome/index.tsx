@@ -11,12 +11,8 @@ export default function Welcome() {
     const [inputValue, setInputValue] = useState("");
 
     const handlePress = async () => {
-        try {
-            await AsyncStorage.setItem("userName", inputValue);
-            navigation.navigate("main");
-        } catch (error) {
-            console.error("Erro ao salvar o nome no AsyncStorage", error);
-        }
+        await AsyncStorage.setItem("userName", inputValue);
+        navigation.navigate("main");
     };
 
     return (

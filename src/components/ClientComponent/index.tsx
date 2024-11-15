@@ -4,7 +4,7 @@ import DeleteClientModal from "../Modals/DeleteClientModal";
 import { useState } from "react";
 import ClientModal from "../Modals/ClientModal";
 import { useFindUserById } from "../../hooks/user/useFindUserById";
-import { AddUserAsyncStorage } from "../../api/user/user";
+import useAddUserAsyncStorage from "../../hooks/user/useAddUserAsyncStorage";
 
 interface ClientComponentProps {
     id: number;
@@ -19,6 +19,7 @@ export default function ClientComponent({ id, companyValuation, name, salary, is
     const [isOpenDelete, setIsOpenDelete] = useState(false);
     const [isOpenUpdate, setIsOpenUpdate] = useState(false);
     const { data: userData } = useFindUserById(id);
+    const { mutate: AddUserAS } = useAddUserAsyncStorage();
 
     return (
         <>
@@ -50,7 +51,7 @@ export default function ClientComponent({ id, companyValuation, name, salary, is
                         </>
                     ) : (
                         <>
-                            <TouchableOpacity style={{ padding: 10 }} onPress={() => AddUserAsyncStorage(id)}>
+                            <TouchableOpacity style={{ padding: 10 }} onPress={() => AddUserAS(id)}>
                                 <IconImage source={require('../../assets/plus.png')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={{ padding: 10 }} onPress={() => setIsOpenUpdate(true)}>

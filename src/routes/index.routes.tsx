@@ -3,7 +3,7 @@ import Welcome from "../pages/welcome";
 import Main from "../pages/main";
 import SelectedClients from "../pages/SelectedClients";
 
-export default function Routes() {
+export default function StackRoutes() {
     const { Navigator, Screen } = createStackNavigator();
     return (
         <Navigator

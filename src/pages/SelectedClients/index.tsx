@@ -1,34 +1,21 @@
 import { ScrollView } from "react-native";
 import Header from "../../components/Header";
 import { buttonStyle, ClientsContainer, MainContainer, textStyle, TitleText } from "./styles";
-import { getClientsFromStorage, removeClientToStorage } from "../../api/user/asyncUser";
-import { useEffect, useState } from "react";
-import { Client } from "../../@types/client";
 import ClientComponent from "../../components/ClientComponent";
 import Button from "../../components/Button";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation, NavigationProp } from "@react-navigation/native"
+import { useGetClientsFromStorage } from "../../hooks/asyncUser/useGetClientsFromStorage";
+import useRemoveClientToStorage from "../../hooks/asyncUser/useRemoveClientToStorage";
 
 export default function SelectedClients() {
     const navigation = useNavigation<NavigationProp<any>>()
-    const [clients, setClients] = useState<Client[]>([]);
-
-    const fetchClients = async () => {
-        const storedClients = await getClientsFromStorage();
-        setClients(storedClients);
-    };
-
-    useEffect(() => {
-        fetchClients();
-    }, []);
+    const { data, refetch } = useGetClientsFromStorage();
+    const { mutate: removeClienToStorage } = useRemoveClientToStorage();
 
     const clearClientsArray = async () => {
-        try {
-            await AsyncStorage.setItem('@clients', JSON.stringify([]));
-            fetchClients()
-        } catch (error) {
-            console.error('Erro ao limpar o array:', error);
-        }
+        await AsyncStorage.setItem('@clients', JSON.stringify([]));
+        refetch()
     };
 
     return (
@@ -39,7 +26,7 @@ export default function SelectedClients() {
                     <TitleText>Clientes selecionados: </TitleText>
                     <ClientsContainer>
                         {
-                            clients.map(({ id, name, salary, companyValuation }) => (
+                            data?.map(({ id, name, salary, companyValuation }) => (
                                 <ClientComponent
                                     key={id}
                                     id={id}
@@ -47,9 +34,9 @@ export default function SelectedClients() {
                                     salary={salary}
                                     companyValuation={companyValuation}
                                     isSelected={true}
-                                    handleMinus={async() => {
-                                        await removeClientToStorage(id)
-                                        fetchClients();
+                                    handleMinus={ () => {
+                                        removeClienToStorage(id)
+                                        refetch();
                                     }}
                                 />
                             ))

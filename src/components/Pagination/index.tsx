@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { buttonStyle, MainContainer, PaginationTextActive, textStyle, ThreeDotsText } from "./style";
-import { createPagination } from "../../utils/createPagination";
 import Button from "../Button";
+import { createPagination } from "../../utils/pagination/createPagination";
 
 export interface PaginationValues {
     firstPage: number;
