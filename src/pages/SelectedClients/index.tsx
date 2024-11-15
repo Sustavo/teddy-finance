@@ -5,18 +5,29 @@ import ClientComponent from "../../components/ClientComponent";
 import Button from "../../components/Button";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation, NavigationProp } from "@react-navigation/native"
-import { useGetClientsFromStorage } from "../../hooks/asyncUser/useGetClientsFromStorage";
 import useRemoveClientToStorage from "../../hooks/asyncUser/useRemoveClientToStorage";
+import { getClientsFromStorage } from "../../api/user/asyncUser";
+import { useEffect, useState } from "react";
+import { Client } from "../../@types/client";
 
 export default function SelectedClients() {
     const navigation = useNavigation<NavigationProp<any>>()
-    const { data, refetch } = useGetClientsFromStorage();
-    const { mutate: removeClienToStorage } = useRemoveClientToStorage();
+    const [clients, setClients] = useState<Client[]>([]);
+    const { mutate: removeClienToStorage, isSuccess } = useRemoveClientToStorage();
 
     const clearClientsArray = async () => {
         await AsyncStorage.setItem('@clients', JSON.stringify([]));
-        refetch()
+        await fetchClients();
     };
+
+    const fetchClients = async () => {
+        const storedClients = await getClientsFromStorage();
+        setClients(storedClients);
+    };
+
+    useEffect(() => {
+        fetchClients();
+    }, [isSuccess]);
 
     return (
         <>
@@ -26,7 +37,7 @@ export default function SelectedClients() {
                     <TitleText>Clientes selecionados: </TitleText>
                     <ClientsContainer>
                         {
-                            data?.map(({ id, name, salary, companyValuation }) => (
+                            clients?.map(({ id, name, salary, companyValuation }) => (
                                 <ClientComponent
                                     key={id}
                                     id={id}
@@ -34,10 +45,7 @@ export default function SelectedClients() {
                                     salary={salary}
                                     companyValuation={companyValuation}
                                     isSelected={true}
-                                    handleMinus={ () => {
-                                        removeClienToStorage(id)
-                                        refetch();
-                                    }}
+                                    handleMinus={() => removeClienToStorage(id)}
                                 />
                             ))
                         }

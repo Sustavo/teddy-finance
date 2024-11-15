@@ -36,8 +36,6 @@ export default function ClientModal({ isVisible = false, onPressBackDrop, client
 
     const onSubmit = async (data: CreateClient) => {
         try {
-            let response;
-
             if (clientData) {
                 updateUserMutate({
                     id: clientData.id,
