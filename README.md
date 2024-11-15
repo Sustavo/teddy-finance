@@ -1,4 +1,6 @@
 # **README**
+## OBS
+Desculpe por não ter feito a padronização de commit, não tinha me atentado a esse detalhe no test, porém possuo outro projeto bem interessante que fiz em react native, onde em 90% dos commits eu segui uma padronização de commit, caso queira dar uma olhada, o projeto é o: https://github.com/Sustavo/Receite-Me/
 
 ## 📦 **Descrição do Projeto**
 
