@@ -1,4 +1,4 @@
-import { GestureResponderEvent, TextStyle, TouchableOpacity, TouchableOpacityProps, ViewStyle } from "react-native";
+import { GestureResponderEvent, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native";
 import { disabledStyle, ScopeButton, TextButton, textDisabled } from "./styles";
 
 interface ButtonProps extends TouchableOpacityProps {

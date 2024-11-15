@@ -1,13 +1,10 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { ContainerIcons, DefaultText, IconImage, MainContainer, NameText } from "./style";
 import DeleteClientModal from "../Modals/DeleteClientModal";
-import { useEffect, useState } from "react";
-import useDeleteUser from "../../hooks/user/useDeleteUser";
+import { useState } from "react";
 import ClientModal from "../Modals/ClientModal";
-import { UpdateClient } from "../../@types/client";
 import { useFindUserById } from "../../hooks/user/useFindUserById";
 import { AddUserAsyncStorage } from "../../api/user/user";
-import { removeClientToStorage } from "../../api/user/asyncUser";
 
 interface ClientComponentProps {
     id: number;
@@ -47,19 +44,19 @@ export default function ClientComponent({ id, companyValuation, name, salary, is
                         <>
                             <View />
                             <View />
-                            <TouchableOpacity style={{padding: 10}} onPress={handleMinus}>
+                            <TouchableOpacity style={{ padding: 10 }} onPress={handleMinus}>
                                 <IconImage source={require('../../assets/minus.png')} />
                             </TouchableOpacity>
                         </>
                     ) : (
                         <>
-                            <TouchableOpacity style={{padding: 10}} onPress={() => AddUserAsyncStorage(id)}>
+                            <TouchableOpacity style={{ padding: 10 }} onPress={() => AddUserAsyncStorage(id)}>
                                 <IconImage source={require('../../assets/plus.png')} />
                             </TouchableOpacity>
-                            <TouchableOpacity style={{padding: 10}} onPress={() => setIsOpenUpdate(true)}>
+                            <TouchableOpacity style={{ padding: 10 }} onPress={() => setIsOpenUpdate(true)}>
                                 <IconImage source={require('../../assets/pencil.png')} />
                             </TouchableOpacity>
-                            <TouchableOpacity style={{padding: 10}} onPress={() => setIsOpenDelete(true)}>
+                            <TouchableOpacity style={{ padding: 10 }} onPress={() => setIsOpenDelete(true)}>
                                 <IconImage source={require('../../assets/trash.png')} />
                             </TouchableOpacity>
                         </>

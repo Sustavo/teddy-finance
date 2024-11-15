@@ -1,6 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Client } from "../../@types/client";
-import { api } from "..";
 import { CreateUser } from "./user";
 
 const CLIENTS_KEY = "@clients";

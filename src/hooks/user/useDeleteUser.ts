@@ -1,6 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { FetchDeleteUser } from "../../api/user/user";
-import { api } from "../../api";
 
 export default function useDeleteUser() {
   return useMutation({

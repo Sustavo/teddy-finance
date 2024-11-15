@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { buttonStyle, MainContainer, PaginationText, PaginationTextActive, textStyle, ThreeDotsText } from "./style";
+import { buttonStyle, MainContainer, PaginationTextActive, textStyle, ThreeDotsText } from "./style";
 import { createPagination } from "../../utils/createPagination";
-import { TouchableOpacity } from "react-native";
 import Button from "../Button";
 
 export interface PaginationValues {

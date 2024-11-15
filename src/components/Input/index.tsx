@@ -1,4 +1,4 @@
-import { GestureResponderEvent, StyleProp, TextInput, TextInputProps, TextStyle, TouchableOpacity, TouchableOpacityProps, ViewStyle } from "react-native";
+import { StyleProp, TextInput, TextInputProps, TextStyle, ViewStyle } from "react-native";
 import { Container, TextMain } from "./styles";
 
 interface InputProps extends TextInputProps {

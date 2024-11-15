@@ -1,9 +1,9 @@
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import ClientComponent from "../../components/ClientComponent";
 import Button from "../../components/Button";
 import { TextBold } from "../../global/globalStyles";
 import { buttonStyle, ClientsContainer, ClientText, MainContainer, PageClientsContainer, PickerContainer, textStyle } from "./styles";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useFetchAllUsers } from "../../hooks/user/useFetchAllUsers";
 import ClientModal from "../../components/Modals/ClientModal";
 import Header from "../../components/Header";
