@@ -1,7 +1,7 @@
 import { ScrollView } from "react-native";
 import Header from "../../components/Header";
 import { buttonStyle, ClientsContainer, MainContainer, textStyle, TitleText } from "./styles";
-import { getClientsFromStorage } from "../../api/user/asyncUser";
+import { getClientsFromStorage, removeClientToStorage } from "../../api/user/asyncUser";
 import { useEffect, useState } from "react";
 import { Client } from "../../@types/client";
 import ClientComponent from "../../components/ClientComponent";
@@ -33,7 +33,7 @@ export default function SelectedClients() {
 
     return (
         <>
-            <Header onPress={() => navigation.navigate("main")}/>
+            <Header onPress={() => navigation.navigate("main")} />
             <ScrollView>
                 <MainContainer>
                     <TitleText>Clientes selecionados: </TitleText>
@@ -47,6 +47,10 @@ export default function SelectedClients() {
                                     salary={salary}
                                     companyValuation={companyValuation}
                                     isSelected={true}
+                                    handleMinus={async() => {
+                                        await removeClientToStorage(id)
+                                        fetchClients();
+                                    }}
                                 />
                             ))
                         }

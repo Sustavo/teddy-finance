@@ -7,7 +7,7 @@ export const MainContainer = styled.View`
   align-items: center;
   width: 100%;
   gap: 10px;
-  padding: 16px 30px;
+  padding: 16px 20px;
   border-radius: 4px;
 `;
 
